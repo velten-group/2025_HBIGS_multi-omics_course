@@ -1,0 +1,142 @@
+---
+title: Welcome!
+author: "Velten group"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Welcome to the Multi-Omics course
+
+The purpose of this file is to verify that you have successfully installed R and RStudio.
+
+<mark>**Your task**: Please generate a html version of this file (following the steps described below).</mark> 
+
+
+# Recap on RStudio and RMarkdown
+By clicking on the "**Knit**" button on top of this panel we will produce a `.html` report that displays the text and evaluates the code in the `.Rmd` file displaying both the code as well as its output. The `.html` file will open automatically and is also saved in the same folder (and with the same name) as the `.Rmd` script.
+
+
+## Checking your R version
+This chunk will produce an error if your R version is not up-to-date. In this case, you can update it by installing the latest version from this [LINK](https://cran.r-project.org/). After the installation you need to re-open RStudio and re-run this file to check whether you now have the latest version.
+```{r}
+if(version$major < 4 | version$minor < 4) {
+  stop("Your R version is not up-to-date. Please download the latest R version (4.4)")
+} else {
+  print("Your R version is up-to-date.")
+  }
+```
+
+
+# Using Bioconductor
+In this course we will make use of packages that are installed from Bioconductor. We will learn more about Bioconductor in the course.
+
+Recall that usually we have installed packages from [CRAN](https://cran.r-project.org/) using the function `install.packages`.
+```{r}
+# only installs the package if not yet available,
+# "!" means "not" in R language
+if(!"tidyverse" %in% installed.packages()) 
+  install.packages("tidyverse")
+```
+
+[Bioconductor](https://www.bioconductor.org/about/) is a platform for R packages tailored to applications in the life sciences. The mission of the Bioconductor project is to develop, support, and disseminate free open source software for rigorous and reproducible analysis of biological data.
+
+To install packages from Bioconductor there is a dedicated package manager called `BiocManager` that will take care of installing and managing different versions of packages. We first install this packages using the standard `install.packages` function.
+```{r}
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(version = "3.20")
+```
+
+Optional: The `valid` function can be used to check that your packages are all in line with the current version of BioConductor
+```{r}
+BiocManager::valid()
+```
+
+For details on installing Bioconductor refer to [their documentation](https://www.bioconductor.org/install/).
+
+## Installing packages from Bioconductor
+
+Many packages are available for a wide range of purposes on Bioconductor, you can browse these packages [here](https://www.bioconductor.org/packages/release/BiocViews.html#___Software). Here we will install the following. Details on these packages will be covered in the course.
+
+Install a style package
+```{r}
+BiocManager::install("BiocStyle")
+```
+
+Install a data integration package.
+```{r}
+BiocManager::install("MOFA2")
+```
+
+
+Now we can use those packages like we would for packages from CRAN loading them using `library`. For example:
+```{r}
+library(MOFA2)
+```
+
+# Installing packages required for the course
+In the following we we install specific packages needed for the course. The following code is not evaluated when generating the html report to avoid problems but please try to run it in RStudio to install all packages listed. Some packages might produce errors in the installation. If you encounter errors with some packages please report which packages produce errors. You will also be able to get help on this during the course in case packages cannot be installed.
+```{r, eval = FALSE}
+# if not installed yet, install the packages like this
+
+# devtools
+install.packages("devtools")
+
+# Seurat
+install.packages("Seurat")
+
+# SeuratData
+devtools::install_github('satijalab/seurat-data')
+
+# MOFAdata
+BiocManager::install("MOFAdata")
+
+# ggfortify
+install.packages("ggfortify")
+
+# uwot
+install.packages("uwot")
+
+# lisi
+devtools::install_github("immunogenomics/lisi")
+
+# ggplot2 
+install.packages('ggplot2')
+
+# patchwork
+install.packages('patchwork')
+
+# dplyr 
+install.packages('dplyr')
+
+# CARD
+devtools::install_github('YMa-lab/CARD')
+
+# OPTIONAL: SpatialDE
+#BiocManager::install("spatialDE")
+# OPTIONAL: reticulate
+#install.packages("reticulate")
+```
+
+Now we check if all packages can be loaded.
+```{r, eval = FALSE}
+library(Seurat)
+stopifnot(packageVersion("Seurat")$major == 5)
+library(SeuratData)
+library(MOFAdata)
+library(ggfortify)
+library(uwot)
+library(lisi)
+
+library(ggplot2)
+library(patchwork)
+library(dplyr)
+library(CARD)
+```
+
+# Final step : Showing the details of your current R session
+At the end of each Rmd file it is useful to print the output of the `sessionInfo()` function. This is important for reproducibility as it helps you and others to go back to a html report, which you did in the past and see which operating system, R version and package versions you used.
+
+```{r}
+sessionInfo()
+```
