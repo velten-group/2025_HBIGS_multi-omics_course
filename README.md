@@ -14,3 +14,7 @@ The lecture slides for the course can be downloaded from Heibox: https://heibox.
 ## Installation tips
 In case lisi package installation fails:
 For macOS users: try downloading and installing GNU Fortran compiler from: https://mac.r-project.org/tools/
+For Windows users: 
+  1) Go to https://cran.r-project.org/bin/windows/Rtools/
+  2) Download the version that matches your version of R. For example: R 4.3 → Rtools43 ; R 4.4 → Rtools44
+  3) Run in Rstudio: pkgbuild::has_build_tools(debug = TRUE), it should return True
