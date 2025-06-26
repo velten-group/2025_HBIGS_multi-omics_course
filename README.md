@@ -10,3 +10,6 @@ This repository contains the material for the practical sessions of the course "
 
 ## Lecture slides
 The lecture slides for the course can be downloaded from Heibox: https://heibox.uni-heidelberg.de/d/2a7bdb94784a43cc8c79/ 
+
+## Installation tips
+In case lisi package installation fails, try downloading and installing GNU Fortran compiler from: https://mac.r-project.org/tools/
