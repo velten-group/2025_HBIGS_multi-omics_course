@@ -1,0 +1,28 @@
+---
+title: "Open exercises"
+date: "`r Sys.Date()`"
+author: "Velten group"
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 1
+---
+
+# Introduction
+
+We are finishing this course with a very open practical session in which you can apply and connect various methods that you learnt the last days. Below are some ideas to get you started from which you can freely choose from, but feel to explore what interests you the most and ask questions when you are stuck on something. In case you are having some own data on which you would like to apply some of the methods we discussed, feel free to test some methods on them. Otherwise, here are some more project ideas to look into the next 2 hours: 
+
+## Idea 1: Applying MOFA to the single-cell multi-omics mouse gastrulation data set
+a) In the single-cell introduction session yesterday, we used the mouse gastrulation data set to learn more about the processing with Seurat. If you are interested in checking out some downstream analysis with MOFA on this data set, go back to this file and analyse the pre-trained MOFA object and what the factors capture here.
+b) There exists also an extension of MOFA - called MEFISTO - which allows to account for temporal or spatial information on the samples. In [MEFISTO](https://www.nature.com/articles/s41592-021-01343-9) we can make use of pseudotime information for each cell to distinguish patterns of variation (i.e., factors) that vary smoothly along pseudotime from other non-smooth sources of variation, e.g. cell cycle. If you are interested take a look at the [MEFISTO paper](https://www.nature.com/articles/s41592-021-01343-9) and the Figure 4 therein. To reproduce this we can train a similar model on the full data from all 4 stages and additionally pass the pseudo-time values for each cell to MOFA. If you are interested in how this works and what other types of down-stream analysis are possible have a look at
+[this tutorial](https://raw.githack.com/bioFAM/MEFISTO_tutorials/master/scnmt_mefisto_vignette.html). The required data can be downloaded from [here](https://figshare.com/articles/dataset/MEFISTO_Data_for_tutorials/13233860).
+
+
+## Idea 2: Invertible data integration with LEMUR
+In the session on batch integration, we compared various methods included in Seurat to correct for batch effects. However, with these integration tools there is no way to go back from the integrated embedding to the original gene space. A new tool called [LEMUR](https://bioconductor.org/packages/lemur/) provides this functionality by matching the subspace of each condition and details can be found in [this paper](https://www.nature.com/articles/s41588-024-01996-0). 
+a) Try to run LEMUR on the pancreas data we used in the batch integration session and compare its embedding to the other batch integration methods. 
+b) Additionally, LEMUR allows to do a continuous differential expression testing since we can ask for each cell the counterfactual what the expression of a cell from one expression would have been in another condition. This is most interesting for datasets which contain untreated and treated cells of different cell types such as the glioblastoma data used in [this vignette](https://www.bioconductor.org/packages/release/bioc/vignettes/lemur/inst/doc/Introduction.html). Use this data set to do a differential expression analysis with LEMUR following the tutorial. 
+
+
+## Idea 3: Learning smooth spatial patterns using MEFISTO
+In the spatial session, we’ve seen that CARD can estimate cell type proportions and refine gene expression. However, it relies on prior biological knowledge or references. An alternative would be to use MEFISTO, an extension on MOFA which allows to account for temporal or spatial information on the samples. [MEFISTO](https://www.nature.com/articles/s41592-021-01343-9) directly learns smooth latent factors (e.g. cell type distributions) from spatial expression data using Gaussian processes, without needing cell type references or marker genes. These latent factors can capture developmental gradients, uncover spatially coordinated biological processes and be linked to gene sets post hoc via the learned loadings. Run MEFISTO on the dataset used in the spatial tutorial with the spatial coordinates as covariates. 
